@@ -15,9 +15,8 @@ const shopReviewRouter = require('./routes/shop/review-routes')
 
 
 const User = require('./models/User')
-mongoose.connect('mongodb://127.0.0.1:27017/User')
 
-// mongoose.connect('mongodb+srv://luciferjalwaniya702:JgBhE8H1HXxggH37@cluster0.lkxfspw.mongodb.net/')
+mongoose.connect(process.env.MONGO_URL)
 .then(()=> console.log('MonogDB connected'))
 .catch(error =>console.log(error));
 
