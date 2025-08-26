@@ -16,7 +16,7 @@ dist-ssr
 
 server1/.env
 
-# Editor directories and files
+# Editor directories 
 .vscode/*
 !.vscode/extensions.json
 .idea
