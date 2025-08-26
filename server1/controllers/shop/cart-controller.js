@@ -253,7 +253,7 @@
 
 
 const Cart = require('../../models/Cart');
-const Product = require('../../models/product')
+const Product = require('../../models/Product')
 
 
 const addToCart = async(req,res)=>{

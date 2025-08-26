@@ -1,7 +1,7 @@
  const paypal = require('../../healpers/paypal')
  const Order = require('../../models/Order')
  const Cart = require('../../models/Cart')
- const Product = require('../../models/product')
+ const Product = require('../../models/Product')
 
 const createOrder = async(req, res)=>{
     try {
@@ -17,8 +17,8 @@ const createOrder = async(req, res)=>{
     payment_method: 'paypal'
   },
   redirect_urls: {
-    return_url: 'http://localhost:5173/shop/paypal-return',
-    cancel_url: 'http://localhost:5173/shop/paypal-cancel',
+    return_url: `${process.env.CLIENT_URL}/shop/paypal-return`,
+    cancel_url: `${process.env.CLIENT_URL}/shop/paypal-cancel`,
   },
   transactions: [
     {
@@ -180,5 +180,4 @@ const getAllOrderDetails = async (req, res)=>{
 }
 module.exports ={createOrder, capturePayment ,getAllOrderDetails ,getAllOrdersByUser};
 
-// 12:23
-// 10:53 😒
+
