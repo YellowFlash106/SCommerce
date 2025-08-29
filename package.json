@@ -1,0 +1,25 @@
+{
+  "name": "new-folder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "concurrently \"cd server1 && npm start\" \"cd client && npm run dev\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YellowFlash106/SCommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/YellowFlash106/SCommerce/issues"
+  },
+  "homepage": "https://github.com/YellowFlash106/SCommerce#readme",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

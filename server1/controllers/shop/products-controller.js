@@ -1,5 +1,5 @@
 
-const Product = require('../../models/Product')
+import Product from '../../models/product.js';
 
 
 const getFilteredProducts = async (req, res) => {

@@ -12,4 +12,4 @@ const ProductSchema = new mongoose.Schema({
 },{timeseries : true})
 
 // module.exports = mongoose.model('Product' , ProductSchema)
-module.exports = mongoose.models.Product || mongoose.model('Product', ProductSchema);
+export default  mongoose.model('Product', ProductSchema);

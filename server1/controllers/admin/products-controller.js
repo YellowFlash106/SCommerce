@@ -1,5 +1,5 @@
 const { ImageUploadUtil } = require("../../healpers/cloudinary");
-const Product = require('../../models/Product'); // Add this line
+const Product = require('../../models/product.js'); // Add this line
 
 
 
