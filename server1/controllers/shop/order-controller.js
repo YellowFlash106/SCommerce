@@ -1,7 +1,7 @@
  const paypal = require('../../healpers/paypal')
  const Order = require('../../models/Order')
  const Cart = require('../../models/Cart')
- const Product = require('../../models/Product')
+ const Product = require('../../models/product.js')
 
 const createOrder = async(req, res)=>{
     try {
