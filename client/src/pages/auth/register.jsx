@@ -18,21 +18,31 @@ function AuthRegister() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-    dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.success) {
+    try {
+      const result = await dispatch(registerUser(formData));
+      
+      if (result.error) {
+        throw new Error(result.error.message || 'Registration failed');
+      }
+      
+      if (result.payload?.success) {
         toast({
-          title: data?.payload?.message,
+          title: result.payload.message || 'Registration successful!',
+          description: 'Please log in to continue.',
         });
         navigate("/auth/login");
       } else {
-        toast({
-          title: data?.payload?.message,
-          variant: "destructive",
-        });
+        throw new Error(result.payload?.message || 'Registration failed. Please try again.');
       }
-    });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   }
 
   console.log(formData);
