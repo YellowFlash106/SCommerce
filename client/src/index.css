@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    --font-sans: "Manrope", "Segoe UI", sans-serif;
+    --font-display: "Space Grotesk", "Segoe UI", sans-serif;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -65,5 +67,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
   }
 }
