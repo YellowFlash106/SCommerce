@@ -23,12 +23,21 @@ mongoose.connect(process.env.MONGO_URL)
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
+const allowedOrigins = (process.env.CLIENT_URL || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 
 
 
 app.use(
     cors({
-        origin : process.env.CLIENT_URL,
+        origin: (origin, callback) => {
+            if (!origin) return callback(null, true);
+            if (allowedOrigins.length === 0) return callback(null, true);
+            if (allowedOrigins.includes(origin)) return callback(null, true);
+            return callback(new Error("Not allowed by CORS"));
+        },
         methods: ['GET','POST','DELETE','PUT'],
         allowedHeaders:[
             "Content-Type",
@@ -52,6 +61,8 @@ app.use('/api/shop/address',shopAddressRouter);
 app.use('/api/shop/order',shopOrderRouter);
 app.use('/api/shop/search',shopSearchRouter);
 app.use('/api/shop/review',shopReviewRouter);
+
+app.get('/health', (_req, res) => res.status(200).json({ ok: true }));
 
 
 
