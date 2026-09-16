@@ -2,57 +2,57 @@ import { Navigate, useLocation } from "react-router-dom";
 
 function CheckAuth({ isAuthenticated, user, children }) {
   const location = useLocation();
+  const role = user?.role;
+  const path = location.pathname;
 
-  console.log(location.pathname, isAuthenticated);
-
-  if (location.pathname === "/") {
-    if (!isAuthenticated) {
-      return <Navigate to="/auth/login" />;
-    } else {
-      if (user?.role === "admin") {
-        return <Navigate to="/admin/dashboard" />;
-      } else {
-        return <Navigate to="/shop/home" />;
-      }
-    }
+  // ── Root redirect ────────────────────────────────────────────────────────────
+  if (path === "/") {
+    if (!isAuthenticated) return <Navigate to="/auth/login" />;
+    if (role === "admin") return <Navigate to="/admin/dashboard" />;
+    if (role === "seller") return <Navigate to="/seller/dashboard" />;
+    return <Navigate to="/shop/home" />;
   }
 
+  // ── Not authenticated → send to login (except auth pages) ───────────────────
   if (
     !isAuthenticated &&
-    !(
-      location.pathname.includes("/login") ||
-      location.pathname.includes("/register")
-    )
+    !path.includes("/login") &&
+    !path.includes("/register")
   ) {
     return <Navigate to="/auth/login" />;
   }
 
+  // ── Authenticated on auth pages → redirect to home ──────────────────────────
   if (
     isAuthenticated &&
-    (location.pathname.includes("/login") ||
-      location.pathname.includes("/register"))
+    (path.includes("/login") || path.includes("/register"))
   ) {
-    if (user?.role === "admin") {
-      return <Navigate to="/admin/dashboard" />;
-    } else {
-      return <Navigate to="/shop/home" />;
-    }
+    if (role === "admin") return <Navigate to="/admin/dashboard" />;
+    if (role === "seller") return <Navigate to="/seller/dashboard" />;
+    return <Navigate to="/shop/home" />;
   }
 
-  if (
-    isAuthenticated &&
-    user?.role !== "admin" &&
-    location.pathname.includes("admin")
-  ) {
+  // ── Role guard: only admin can access /admin/* ───────────────────────────────
+  if (isAuthenticated && role !== "admin" && path.includes("/admin")) {
     return <Navigate to="/unauth-page" />;
   }
 
-  if (
-    isAuthenticated &&
-    user?.role === "admin" &&
-    location.pathname.includes("shop")
-  ) {
+  // ── Role guard: only seller can access /seller/* ─────────────────────────────
+  if (isAuthenticated && role !== "seller" && path.includes("/seller")) {
+    return <Navigate to="/unauth-page" />;
+  }
+
+  // ── Admin / seller cannot browse the shop ───────────────────────────────────
+  if (isAuthenticated && role === "admin" && path.includes("/shop")) {
     return <Navigate to="/admin/dashboard" />;
+  }
+  if (isAuthenticated && role === "seller" && path.includes("/shop")) {
+    return <Navigate to="/seller/dashboard" />;
+  }
+
+  // ── User cannot access admin or seller panels ────────────────────────────────
+  if (isAuthenticated && role === "user" && path.includes("/seller")) {
+    return <Navigate to="/unauth-page" />;
   }
 
   return <>{children}</>;

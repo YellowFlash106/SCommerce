@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-// import mongoose from "mongoose";
-// const User = require('../../')
 
 const UserSchema = new mongoose.Schema({
     userName: {
@@ -19,9 +17,24 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
+        enum: ['user', 'admin', 'seller'],
         default: 'user'
-    }
-});
+    },
+    // Seller-specific fields
+    isApprovedSeller: {
+        type: Boolean,
+        default: false,
+    },
+    sellerStatus: {
+        // pending | approved | rejected
+        type: String,
+        default: null,
+    },
+    storeName: {
+        type: String,
+        default: null,
+    },
+}, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

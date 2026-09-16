@@ -16,7 +16,7 @@ import {
   getAllOrdersByUserId,
   getOrderDetails,
   resetOrderDetails,
-} from "@/store/shop/order-slice";
+} from "@/store/shop/orderSlice";
 import { Badge } from "../ui/badge";
 
 function ShoppingOrders() {
