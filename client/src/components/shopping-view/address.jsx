@@ -8,7 +8,7 @@ import {
   deleteAddress,
   editaAddress,
   fetchAllAddresses,
-} from "@/store/shop/address-slice";
+} from "@/store/shop/addressSlice";
 import AddressCard from "./address-card";
 import { useToast } from "../ui/use-toast";
 

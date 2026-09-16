@@ -15,6 +15,7 @@ function ProductImageUpload({
   setImageLoadingState,
   isEditMode,
   isCustomStyling = false,
+  uploadEndpoint = "/api/admin/products/upload-image",
 }) {
   const inputRef = useRef(null);
 
@@ -50,8 +51,9 @@ function ProductImageUpload({
     const data = new FormData();
     data.append("my_file", imageFile);
     const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/admin/products/upload-image`,
-      data
+      `${import.meta.env.VITE_API_URL}${uploadEndpoint}`,
+      data,
+      { withCredentials: true }
     );
     console.log(response, "response");
 

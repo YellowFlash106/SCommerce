@@ -1,16 +1,17 @@
-
 const express = require('express');
-
-
-const { getAllOrdersOfAllUsers, 
-    getAllOrderDetailsForAdmin,
-    updateOrderStatus}
-= require('../../controllers/admin/order-controller')
-
 const router = express.Router();
 
-router.get('/get',getAllOrdersOfAllUsers);
-router.get('/details/:id',getAllOrderDetailsForAdmin);
-router.put('/update/:id',getAllOrderDetailsForAdmin);
+const {
+    getAllOrdersOfAllUsers,
+    getAllOrderDetailsForAdmin,
+    updateOrderStatus
+} = require('../../controllers/admin/order-controller');
+
+const { authMidleware, adminMiddleware } = require('../../controllers/auth/auth-controller');
+
+// All admin order routes are protected
+router.get('/get', authMidleware, adminMiddleware, getAllOrdersOfAllUsers);
+router.get('/details/:id', authMidleware, adminMiddleware, getAllOrderDetailsForAdmin);
+router.put('/update/:id', authMidleware, adminMiddleware, updateOrderStatus);
 
 module.exports = router;

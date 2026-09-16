@@ -23,13 +23,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllFilteredProducts,
   fetchProductDetails,
-} from "@/store/shop/products-slice";
+} from "@/store/shop/productSlice";
 import ShoppingProductTile from "@/components/shopping-view/product-tile";
 import { useNavigate } from "react-router-dom";
-import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
+import { addToCart, fetchCartItems } from "@/store/shop/cartSlice";
 import { useToast } from "@/components/ui/use-toast";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
-import { getFeatureImages } from "@/store/common-slice";
+import { getFeatureImages } from "@/store/common";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
